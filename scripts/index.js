@@ -25,7 +25,7 @@ function addCard(cardData, removeCard) {
 // @todo: Функция удаления карточки
 
 function removeCard(evt) {
-  let card = evt.target.closest('.card');
+  const card = evt.target.closest('.card');
   card.remove();
 };
 
