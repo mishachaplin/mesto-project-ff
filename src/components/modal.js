@@ -28,7 +28,7 @@ function closeModalOverlay(evt) {
 };
 
 //Close modal on X function
-function closeModalX(allXButtons) {
+function setClosePopupByCrossListeners(allXButtons) {
   allXButtons.forEach(button => {
     button.addEventListener('click', function () {
       const popup = button.closest('.popup');
@@ -37,4 +37,4 @@ function closeModalX(allXButtons) {
   });
 };
 
-export { openModal, closeModal, closeModalX };
+export { openModal, closeModal, setClosePopupByCrossListeners };

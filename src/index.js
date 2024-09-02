@@ -1,6 +1,6 @@
 import '../src/pages/index.css';
 import { initialCards } from "./components/cards";
-import { openModal, closeModal, closeModalX } from './components/modal';
+import { openModal, closeModal, setClosePopupByCrossListeners } from './components/modal';
 import { createCard, deleteCard, likeCard } from './components/card';
 
 // DOM nodes
@@ -13,7 +13,7 @@ initialCards.forEach(function (elem) {
 
 //Close any popup on Х click
 const allXButtons = document.querySelectorAll('.popup__close');
-closeModalX(allXButtons);
+setClosePopupByCrossListeners(allXButtons);
 
 //PROFILE POPUP
 //PROFILE popup variables
@@ -30,8 +30,8 @@ const jobInput = profileForm.querySelector('.popup__input_type_description');
 const profileEditBtn = document.querySelector('.profile__edit-button');
 profileEditBtn.addEventListener('click', () => {
   openModal(profileEditModal);
-  nameInput.placeholder = profileTitle.textContent;
-  jobInput.placeholder = profileDescription.textContent;
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
 });
 
 // Profile form submit function
@@ -62,10 +62,10 @@ newCardBtn.addEventListener('click', () => {
 
 //Combine new card data function
 function combineCardData(url, name) {
-  const cardObj = {};
-  cardObj.link = url.value;
-  cardObj.name = name.value;
-  return cardObj;
+  const cardData = {};
+  cardData.link = url.value;
+  cardData.name = name.value;
+  return cardData;
 };
 
 //Add new card

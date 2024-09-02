@@ -6,3 +6,6 @@
 dist
 .DS_Store
 .gitignore"
+
+
+Вроде теперь все ок :)
