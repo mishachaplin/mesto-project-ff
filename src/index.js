@@ -13,7 +13,6 @@ initialCards.forEach(function (elem) {
 
 //Close any popup on Х click
 const allXButtons = document.querySelectorAll('.popup__close');
-
 closeModalX(allXButtons);
 
 //PROFILE POPUP
