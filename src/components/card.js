@@ -7,10 +7,12 @@ function createCard(cardData, onDelete, onLike, openImg) {
   const cardImage = cardElement.querySelector('.card__image');
   const cardTitle = cardElement.querySelector('.card__title');
   const deleteButton = cardElement.querySelector('.card__delete-button');
+  const cardLikes = cardElement.querySelector('.card__like-counter');
 
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   cardTitle.textContent = cardData.name;
+  cardLikes.textContent = cardData.likes.length;
 
   const card = cardElement;
   deleteButton.addEventListener('click', () => onDelete(card));
