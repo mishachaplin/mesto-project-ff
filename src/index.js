@@ -74,7 +74,7 @@ const createNewCard = (evt) => {
 
   postNewCard(cardData)
     .then((data) => {
-      cardsContainer.prepend(createCard(data, deleteCard, likeCard, openImg));
+      cardsContainer.prepend(createCard(data, userId, deleteCard, likeCard, openImg));
       newCardForm.reset();
       closeModal(newCardModal);
     })
@@ -112,15 +112,18 @@ enableValidation();
 //API stuff
 
 // Get user and card data
+let userId;
 const getUserDataAndCards = () => {
 return Promise.all([getUserData(), getAllCards()])
   .then(([userData, cardsData] ) => {
-    profileTitle.textContent =  userData.name;
+    userId = userData._id;
+    profileTitle.textContent = userData.name;
     profileDescription.textContent = userData.about;
     profileImage.style.backgroundImage = `url(${userData.avatar})`;
 
+
     cardsData.forEach((card) => {
-    cardsContainer.append(createCard(card, deleteCard, likeCard, openImg))
+    cardsContainer.append(createCard(card, userId, deleteCard, likeCard, openImg))
     })
   })
   .catch((err) => {

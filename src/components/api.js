@@ -53,4 +53,20 @@ const postNewCard = (newCarddata) => {
 }
 
 
-export { getUserData, getAllCards, postNewCard, updateUserData };
+const deleteYourCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers
+  })
+  .then(handleResponse)
+}
+
+//Loading
+const renderLoading = (isLoading) => {
+if(isLoading) {
+
+}
+}
+
+
+export { getUserData, getAllCards, postNewCard, updateUserData, deleteYourCard };

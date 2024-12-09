@@ -1,29 +1,42 @@
+import { deleteYourCard } from "./api";
+
 // Card template
 const cardTemplate = document.querySelector('#card-template').content;
 
 //Create card function
-function createCard(cardData, onDelete, onLike, openImg) {
+function createCard(cardData, userId, onDelete, onLike, openImg) {
   const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   const cardTitle = cardElement.querySelector('.card__title');
   const deleteButton = cardElement.querySelector('.card__delete-button');
   const cardLikes = cardElement.querySelector('.card__like-counter');
+  
 
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   cardTitle.textContent = cardData.name;
   cardLikes.textContent = cardData.likes.length;
 
+  if(userId !== cardData.owner._id) {
+    deleteButton.remove();
+  };
+
   const card = cardElement;
-  deleteButton.addEventListener('click', () => onDelete(card));
+  const cardId = cardData._id;
+  deleteButton.addEventListener('click', () => onDelete(card, cardId));
   card.addEventListener('click', onLike);
   card.addEventListener('click', openImg);
 
   return cardElement;
 };
 
+
 //Card delete function
-function deleteCard(card) {
+function deleteCard(card, cardId) {
+  deleteYourCard(cardId)
+  .catch((err) => {
+    console.log(err)
+  })
   card.remove()
 };
 
