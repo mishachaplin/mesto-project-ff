@@ -1,18 +1,18 @@
-//Open popup function
+//Open modal function
 function openModal(popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', closeModalEsc);
   popup.addEventListener('click', closeModalOverlay);
 };
 
-//Close popup function
+//Close modal function
 function closeModal(popup) {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeModalEsc);
   popup.removeEventListener('click', closeModalOverlay);
 };
 
-//Close popup on ESC function
+//Close modal on ESC function
 function closeModalEsc(evt) {
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector('.popup_is-opened');

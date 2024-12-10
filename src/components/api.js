@@ -7,28 +7,25 @@ const config = {
 }
 
 const handleResponse = (res) => {
-  if(res.ok) {
+  if (res.ok) {
     return res.json();
-  } 
+  }
   return Promise.reject(`Ошибка: ${res.status}`)
 };
-
 
 const getUserData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
-
-const getAllCards = () => {
+const getCardsData = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
-
 
 const updateUserData = (title, description) => {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -39,26 +36,24 @@ const updateUserData = (title, description) => {
       about: description
     })
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
-// Post new card to server
 const postNewCard = (newCarddata) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify(newCarddata)
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
-
-const deleteYourCard = (cardId) => {
-  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+const deleteCardDromServer = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
 const likeThisCard = (cardId) => {
@@ -66,7 +61,7 @@ const likeThisCard = (cardId) => {
     method: "PUT",
     headers: config.headers
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
 const unlikeThisCard = (cardId) => {
@@ -74,7 +69,7 @@ const unlikeThisCard = (cardId) => {
     method: "DELETE",
     headers: config.headers
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
 const updateAvatar = (newAvatarUrl) => {
@@ -85,16 +80,7 @@ const updateAvatar = (newAvatarUrl) => {
       avatar: newAvatarUrl
     })
   })
-  .then(handleResponse)
+    .then(handleResponse)
 }
 
-
-//Loading
-const renderLoading = (isLoading) => {
-if(isLoading) {
-
-}
-}
-
-
-export { getUserData, getAllCards, postNewCard, updateUserData, deleteYourCard, likeThisCard, unlikeThisCard, updateAvatar };
+export { getUserData, getCardsData, postNewCard, updateUserData, deleteCardDromServer, likeThisCard, unlikeThisCard, updateAvatar };
