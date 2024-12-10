@@ -4,7 +4,7 @@ import { createCard, deleteCard, likeCard } from './components/card';
 import { enableValidation, clearValidation } from './components/validation';
 import { getCardsData, getUserData, postNewCard, updateUserData, updateAvatar } from './components/api';
 
-// DOM nodes
+//DOM nodes
 const cardsContainer = document.querySelector('.places__list');
 
 //Get user and card data
@@ -16,7 +16,6 @@ const getUserDataAndCards = () => {
       profileTitle.textContent = userData.name;
       profileDescription.textContent = userData.about;
       profileImage.style.backgroundImage = `url(${userData.avatar})`;
-
 
       cardsData.forEach((card) => {
         cardsContainer.append(createCard(card, userId, deleteCard, likeCard, openImg))
@@ -41,7 +40,6 @@ const profileImage = document.querySelector('.profile__image');
 const profileForm = document.forms.editForm;
 const nameInput = profileForm.querySelector('.popup__input_type_name');
 const jobInput = profileForm.querySelector('.popup__input_type_description');
-//const formError = profileForm.querySelector(`.${nameInput.id}-error`);
 const avatarModal = document.querySelector('.popup_type_avatar');
 const newAvatarForm = document.forms.avatarUpdate;
 const avatarUrlInput = newAvatarForm.querySelector('.popup__input_type_avatar-url');
@@ -67,7 +65,6 @@ const submitProfileData = (evt) => {
       profileDescription.textContent = data.about;
       closeModal(profileEditModal)
     })
-
     .catch((err) => {
       console.log(err)
     })
@@ -95,7 +92,6 @@ newAvatarForm.addEventListener('submit', () => {
     })
   serverLoading(false);
 });
-
 
 //NEW CARD
 const newCardModal = document.querySelector('.popup_type_new-card');
