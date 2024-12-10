@@ -1,5 +1,4 @@
 import '../src/pages/index.css';
-// import { initialCards } from "./components/cards";
 import { openModal, closeModal, setClosePopupByCrossListeners } from './components/modal';
 import { createCard, deleteCard, likeCard } from './components/card';
 import { enableValidation, clearValidation } from './components/validation';
