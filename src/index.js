@@ -2,6 +2,7 @@ import '../src/pages/index.css';
 import { openModal, closeModal, setClosePopupByCrossListeners } from './components/modal';
 import { createCard, deleteCard, likeCard } from './components/card';
 import { enableValidation, clearValidation } from './components/validation';
+import { config } from './components/validationConfig';
 import { getCardsData, getUserData, postNewCard, updateUserData, updateAvatar } from './components/api';
 
 //DOM nodes
@@ -46,11 +47,13 @@ const avatarUrlInput = newAvatarForm.querySelector('.popup__input_type_avatar-ur
 const updAvatarBtn = document.querySelector('.profile__image-overlay');
 const avatarImage = document.querySelector('.profile__image');
 const profileEditBtn = document.querySelector('.profile__edit-button');
+const profileSubmitBtn = profileEditModal.querySelector('.popup__button');
+const avatarSubmitBtn = avatarModal.querySelector('.popup__button');
 
 //Profile edit popup open
 profileEditBtn.addEventListener('click', () => {
   openModal(profileEditModal);
-  clearValidation(profileEditModal);
+  clearValidation(profileEditModal, config);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
 });
@@ -58,7 +61,7 @@ profileEditBtn.addEventListener('click', () => {
 // Profile form submit
 const submitProfileData = (evt) => {
   evt.preventDefault();
-  serverLoading(true);
+  serverLoading(profileSubmitBtn, true);
   updateUserData(nameInput.value, jobInput.value)
     .then((data) => {
       profileTitle.textContent = data.name;
@@ -68,7 +71,9 @@ const submitProfileData = (evt) => {
     .catch((err) => {
       console.log(err)
     })
-  serverLoading(false);
+    .finally(() => {
+      serverLoading(profileSubmitBtn, false)
+    }) 
 }
 
 profileForm.addEventListener('submit', submitProfileData);
@@ -76,11 +81,11 @@ profileForm.addEventListener('submit', submitProfileData);
 //Profile picture update
 updAvatarBtn.addEventListener('click', () => {
   openModal(avatarModal);
-  clearValidation(avatarModal);
+  clearValidation(avatarModal, config);
 });
 
 newAvatarForm.addEventListener('submit', () => {
-  serverLoading(true);
+  serverLoading(avatarSubmitBtn, true);
   updateAvatar(avatarUrlInput.value)
     .then((data) => {
       avatarImage.style.backgroundImage = `url(${data.avatar}`;
@@ -90,7 +95,9 @@ newAvatarForm.addEventListener('submit', () => {
     .catch((err) => {
       console.log(err)
     })
-  serverLoading(false);
+    .finally(() => {
+      serverLoading(avatarSubmitBtn, false)
+    }) 
 });
 
 //NEW CARD
@@ -99,11 +106,12 @@ const newCardForm = document.forms.addNewCard;
 const cardNameInput = newCardForm.querySelector('.popup__input_type_card-name');
 const cardUrlInput = newCardForm.querySelector('.popup__input_type_url');
 const newCardBtn = document.querySelector('.profile__add-button');
+const cardSubmitBtn = newCardModal.querySelector('.popup__button');
 
 //Open add card modal
 newCardBtn.addEventListener('click', () => {
   openModal(newCardModal);
-  clearValidation(newCardModal);
+  clearValidation(newCardModal, config);
 });
 
 //Add new card
@@ -113,7 +121,7 @@ const createNewCard = (evt) => {
     name: cardNameInput.value,
     link: cardUrlInput.value
   };
-  serverLoading(true);
+  serverLoading(cardSubmitBtn, true);
 
   postNewCard(cardData)
     .then((data) => {
@@ -121,11 +129,12 @@ const createNewCard = (evt) => {
       newCardForm.reset();
       closeModal(newCardModal);
     })
-
     .catch((err) => {
       console.log(err)
     })
-  serverLoading(false);
+    .finally(() => {
+      serverLoading(cardSubmitBtn, false);
+    }) 
 }
 
 newCardForm.addEventListener('submit', createNewCard);
@@ -146,13 +155,9 @@ function openImg(evt) {
 };
 
 //FORM VALIDATION
-enableValidation();
+enableValidation(config);
 
 //Loading function
-function serverLoading(isLoading) {
-  if (isLoading) {
-    const openPopup = document.querySelector('.popup_is-opened');
-    const submitBtn = openPopup.querySelector('.popup__button');
-    submitBtn.textContent = 'Сохранение...'
-  }
-}
+function serverLoading(submitBtn, isLoading) {
+    submitBtn.textContent = isLoading ? 'Сохранение...' : 'Сохранить';
+};
