@@ -10,21 +10,21 @@ const cardsContainer = document.querySelector('.places__list');
 //Get user and card data
 let userId;
 const getUserDataAndCards = () => {
-return Promise.all([getUserData(), getCardsData()])
-  .then(([userData, cardsData] ) => {
-    userId = userData._id;
-    profileTitle.textContent = userData.name;
-    profileDescription.textContent = userData.about;
-    profileImage.style.backgroundImage = `url(${userData.avatar})`;
+  return Promise.all([getUserData(), getCardsData()])
+    .then(([userData, cardsData]) => {
+      userId = userData._id;
+      profileTitle.textContent = userData.name;
+      profileDescription.textContent = userData.about;
+      profileImage.style.backgroundImage = `url(${userData.avatar})`;
 
 
-    cardsData.forEach((card) => {
-    cardsContainer.append(createCard(card, userId, deleteCard, likeCard, openImg))
+      cardsData.forEach((card) => {
+        cardsContainer.append(createCard(card, userId, deleteCard, likeCard, openImg))
+      })
     })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 getUserDataAndCards();
@@ -71,7 +71,7 @@ const submitProfileData = (evt) => {
     .catch((err) => {
       console.log(err)
     })
-    serverLoading(false);
+  serverLoading(false);
 }
 
 profileForm.addEventListener('submit', submitProfileData);
@@ -82,19 +82,19 @@ updAvatarBtn.addEventListener('click', () => {
   clearValidation(avatarModal);
 });
 
-  newAvatarForm.addEventListener('submit', () => {
-    serverLoading(true);
-    updateAvatar(avatarUrlInput.value)
-      .then((data) => {
-        avatarImage.style.backgroundImage = `url(${data.avatar}`;
-        newAvatarForm.reset();
-        closeModal(avatarModal);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      serverLoading(false);
-  });
+newAvatarForm.addEventListener('submit', () => {
+  serverLoading(true);
+  updateAvatar(avatarUrlInput.value)
+    .then((data) => {
+      avatarImage.style.backgroundImage = `url(${data.avatar}`;
+      newAvatarForm.reset();
+      closeModal(avatarModal);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  serverLoading(false);
+});
 
 
 //NEW CARD
@@ -129,7 +129,7 @@ const createNewCard = (evt) => {
     .catch((err) => {
       console.log(err)
     })
-    serverLoading(false);
+  serverLoading(false);
 }
 
 newCardForm.addEventListener('submit', createNewCard);
@@ -153,10 +153,10 @@ function openImg(evt) {
 enableValidation();
 
 //Loading function
-function serverLoading(isLoading)  {
-  if(isLoading) {
+function serverLoading(isLoading) {
+  if (isLoading) {
     const openPopup = document.querySelector('.popup_is-opened');
     const submitBtn = openPopup.querySelector('.popup__button');
     submitBtn.textContent = 'Сохранение...'
   }
-  }
+}

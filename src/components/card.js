@@ -40,8 +40,7 @@ function createCard(cardData, userId, onDelete, onLike, openImg) {
   return cardElement;
 };
 
-
-//Delete function
+//Delete card function
 function deleteCard(card, cardId) {
   deleteCardDromServer(cardId)
     .catch((err) => {
@@ -50,7 +49,7 @@ function deleteCard(card, cardId) {
   card.remove()
 };
 
-
+//Like card function
 function likeCard(evt, cardId, likesCounter) {
   const heart = evt.target;
   if (!heart.classList.contains("card__like-button_is-active")) {
@@ -73,6 +72,5 @@ function likeCard(evt, cardId, likesCounter) {
       });
   }
 }
-
 
 export { createCard, deleteCard, likeCard };
