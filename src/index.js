@@ -3,7 +3,7 @@ import '../src/pages/index.css';
 import { openModal, closeModal, setClosePopupByCrossListeners } from './components/modal';
 import { createCard, deleteCard, likeCard } from './components/card';
 import { enableValidation, clearValidation } from './components/validation';
-import { getAllCards, getUserData, postNewCard, updateUserData } from './components/api';
+import { getAllCards, getUserData, postNewCard, updateUserData, updateAvatar } from './components/api';
 
 // DOM nodes
 const cardsContainer = document.querySelector('.places__list');
@@ -49,22 +49,6 @@ newCardBtn.addEventListener('click', () => {
   clearValidation(newCardModal);
 });
 
-//Combine new card data function
-// function combineCardData(url, name) {
-//   const cardData = {};
-//   cardData.link = url.value;
-//   cardData.name = name.value;
-//   return cardData;
-// };
-
-//Add new card
-// newCardForm.addEventListener('submit', function (evt) {
-//   evt.preventDefault();
-//   cardsContainer.prepend(createCard(combineCardData(cardUrlInput, cardNameInput), deleteCard, likeCard, openImg));
-//   newCardForm.reset();
-//   closeModal(newCardModal);
-// });
-
 const createNewCard = (evt) => {
   evt.preventDefault();
   const cardData = {
@@ -103,6 +87,29 @@ function openImg(evt) {
   };
 };
 
+//Profile picture popup
+const avatarModal = document.querySelector('.popup_type_avatar');
+const newAvatarForm = document.forms.avatarUpdate;
+const avatarUrlInput = newAvatarForm.querySelector('.popup__input_type_avatar-url');
+const updAvatarBtn = document.querySelector('.profile__image-overlay');
+const avatarImage = document.querySelector('.profile__image');
+
+updAvatarBtn.addEventListener('click', () => {
+  openModal(avatarModal);
+  clearValidation(avatarModal);
+});
+
+  newAvatarForm.addEventListener('submit', () => {
+    updateAvatar(avatarUrlInput.value)
+      .then((data) => {
+        avatarImage.style.backgroundImage = `url(${data.avatar}`;
+        newAvatarForm.reset();
+        closeModal(avatarModal);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  });
 
 //FORM VALIDATION
 
@@ -150,10 +157,3 @@ const submitProfileData = (evt) => {
 }
 
 profileForm.addEventListener('submit', submitProfileData)
-
-
-
-// postNewCard(testCard)
-// .then((data) => {
-//   console.log(data);
-// })

@@ -54,12 +54,40 @@ const postNewCard = (newCarddata) => {
 
 
 const deleteYourCard = (cardId) => {
-  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers
   })
   .then(handleResponse)
 }
+
+const likeThisCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: config.headers
+  })
+  .then(handleResponse)
+}
+
+const unlikeThisCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers
+  })
+  .then(handleResponse)
+}
+
+const updateAvatar = (newAvatarUrl) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: newAvatarUrl
+    })
+  })
+  .then(handleResponse)
+}
+
 
 //Loading
 const renderLoading = (isLoading) => {
@@ -69,4 +97,4 @@ if(isLoading) {
 }
 
 
-export { getUserData, getAllCards, postNewCard, updateUserData, deleteYourCard };
+export { getUserData, getAllCards, postNewCard, updateUserData, deleteYourCard, likeThisCard, unlikeThisCard, updateAvatar };

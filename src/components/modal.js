@@ -12,7 +12,7 @@ function closeModal(popup) {
   popup.removeEventListener('click', closeModalOverlay);
 };
 
-//CLose popup on ESC function
+//Close popup on ESC function
 function closeModalEsc(evt) {
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector('.popup_is-opened');
